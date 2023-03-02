@@ -4,10 +4,10 @@
 #include <dt-bindings/zmk/bt.h>
 
 &inc_dec_kp {
-	triggers-per-rotation = <60>;
+	triggers-per-rotation = <30>;
 };
 &def_lshft {
-	triggers-per-rotation = <30>;
+	triggers-per-rotation = <8>;
 };
 
 / {
