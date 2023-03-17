@@ -3,6 +3,19 @@
 #include <dt-bindings/zmk/rgb.h>
 #include <dt-bindings/zmk/bt.h>
 
+/ {
+    behaviors {
+        inc_dec_kp_8: behavior_sensor_rotate_key_press_8 {
+            compatible = "zmk,behavior-sensor-rotate-key-press";
+            label = "ENC_KEY_PRESS_8";
+            triggers-per-rotation = <8>;
+            #sensor-binding-cells = <2>;
+            
+        };
+    };
+};
+
+
 &inc_dec_kp {
 	triggers-per-rotation = <30>;
 };
@@ -16,7 +29,7 @@
 
 		default_layer {
 			bindings = <&kp LEFT &lt 4 C_MUTE &kp RIGHT>;
-			sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+			sensor-bindings = <&inc_dec_kp_8 C_VOL_UP C_VOL_DN>;
 		};
 		one {
 			bindings = <&kp DOWN &lt 4 SPACE &kp UP>;
