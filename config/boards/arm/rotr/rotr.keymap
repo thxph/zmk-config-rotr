@@ -50,6 +50,18 @@
 		};
 	};
 
+	combos {
+		compatible = "zmk,combos";
+
+		/* Bootloader = press both outer keys together, only on the reset layer. */
+		combo_boot {
+			timeout-ms = <100>;
+			key-positions = <0 2>;
+			layers = <2>;
+			bindings = <&bootloader>;
+		};
+	};
+
 	keymap {
 		compatible = "zmk,keymap";
 
@@ -74,7 +86,13 @@
 		};
 
 		reset_layer {
-			bindings = <&bootloader &mid_lt 5 LG(B) &bootloader>;
+			/*
+			 * Bare &bootloader is deliberately NOT on left/right here: the cycle
+			 * gesture (&to deactivates the held nav layer) would re-expose these
+			 * keys mid-hold and reboot. Bootloader is the LEFT+RIGHT combo below,
+			 * scoped to this layer, so it can only fire on a deliberate two-key press.
+			 */
+			bindings = <&trans &mid_lt 5 LG(B) &trans>;
 			/* red */
 			ledoverride;
 			r = <255>;
