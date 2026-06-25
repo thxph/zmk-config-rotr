@@ -35,23 +35,42 @@
 			#binding-cells = <0>;
 			bindings = <&to 1>, <&rgb_ug RGB_COLOR_HSB(30,100,100)>;
 		};
+
+		to_reset: to_reset {
+			compatible = "zmk,behavior-macro";
+			label = "TO_RESET";
+			#binding-cells = <0>;
+			bindings = <&to 2>, <&rgb_ug RGB_COLOR_HSB(0,100,100)>;
+		};
 	};
 
 	keymap {
 		compatible = "zmk,keymap";
 
 		base_layer {
-			bindings = <&kp DOWN &mid_lt 2 LG(B) &kp UP>;
+			bindings = <&kp DOWN &mid_lt 3 LG(B) &kp UP>;
 			sensor-bindings = <&enc RIGHT LEFT>;
 		};
 
 		second_layer {
-			bindings = <&kp DOWN &mid_lt 2 LG(B) &kp UP>;
+			bindings = <&kp DOWN &mid_lt 4 LG(B) &kp UP>;
 			sensor-bindings = <&enc LS(RIGHT) LS(LEFT)>;
 		};
 
-		nav_layer {
-			bindings = <&to_base &trans &to_second>;
+		reset_layer {
+			bindings = <&bootloader &mid_lt 5 LG(B) &bootloader>;
+		};
+
+		nav_from_base {
+			bindings = <&to_reset &trans &to_second>;
+		};
+
+		nav_from_second {
+			bindings = <&to_base &trans &to_reset>;
+		};
+
+		nav_from_reset {
+			bindings = <&to_second &trans &to_base>;
 		};
 	};
 };

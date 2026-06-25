@@ -133,5 +133,38 @@ that, effect stays solid and only the (ephemeral) color changes per layer.
 ## Out of scope
 
 - Bluetooth profile management on the keymap (kept off the content layers).
-- True cyclic layer switching for >2 layers.
 - Persisting color across reboots (explicitly not wanted).
+
+---
+
+## Addendum 2026-06-26: third (reset) layer + wraparound cycling
+
+Added a third **content** layer for rebooting into the UF2 bootloader to flash
+new firmware, placed into the left/right switch cycle.
+
+**Layers (now 6: 3 content + 3 nav):**
+
+| # | Layer        | Left         | Middle              | Right        | Knob       | LED    |
+|---|--------------|--------------|---------------------|--------------|------------|--------|
+| 0 | base         | `DOWN`       | `&mid_lt 3 LG(B)`   | `UP`         | →/←        | white  |
+| 1 | second       | `DOWN`       | `&mid_lt 4 LG(B)`   | `UP`         | ⇧→/⇧←      | orange |
+| 2 | reset        | `&bootloader`| `&mid_lt 5 LG(B)`   | `&bootloader`| (inherits) | red    |
+| 3 | nav_from_base| →reset (prev)| `&trans`            | →second (next)| —         | —      |
+| 4 | nav_from_second| →base (prev)| `&trans`          | →reset (next)| —          | —      |
+| 5 | nav_from_reset| →second (prev)| `&trans`         | →base (next) | —          | —      |
+
+**Wraparound cycling without a custom behavior:** stock ZMK has no
+next/previous-layer behavior, so instead of one nav layer there is **one nav
+layer per content layer**, each hardcoding its own prev/next `&to` targets.
+Cycle order: base → second → reset → base.
+
+**Reset layer:** both left and right tap → `&bootloader` (reboot to bootloader).
+Middle stays `&mid_lt 5 LG(B)`: holding it activates the nav layer (which
+shadows left/right with cycle bindings), so you can cycle away from the reset
+layer without triggering a flash. New macro `to_reset` = `&to 2` +
+`RGB_COLOR_HSB(0,100,100)` (red, ephemeral like the others).
+
+6 layers is under ZMK's default 8-layer cap — no Kconfig change required.
+
+Superseded from the original design: "True cyclic layer switching for >2 layers"
+is now in scope and implemented via the per-layer nav approach above.
