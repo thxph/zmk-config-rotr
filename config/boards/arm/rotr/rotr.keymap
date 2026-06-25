@@ -22,25 +22,31 @@
 	};
 
 	macros {
+		/*
+		 * Layer color comes from the DEFAULTLAYER underglow effect, which reads
+		 * the ledoverride/r/g/b props on each layer node below. The macros only
+		 * switch the default layer and ensure the strip is on (RGB_ON persists
+		 * on=true, so after the first switch it stays on across reboots).
+		 */
 		to_base: to_base {
 			compatible = "zmk,behavior-macro";
 			label = "TO_BASE";
 			#binding-cells = <0>;
-			bindings = <&to 0>, <&rgb_ug RGB_COLOR_HSB(0,0,100)>;
+			bindings = <&to 0>, <&rgb_ug RGB_ON>;
 		};
 
 		to_second: to_second {
 			compatible = "zmk,behavior-macro";
 			label = "TO_SECOND";
 			#binding-cells = <0>;
-			bindings = <&to 1>, <&rgb_ug RGB_COLOR_HSB(30,100,100)>;
+			bindings = <&to 1>, <&rgb_ug RGB_ON>;
 		};
 
 		to_reset: to_reset {
 			compatible = "zmk,behavior-macro";
 			label = "TO_RESET";
 			#binding-cells = <0>;
-			bindings = <&to 2>, <&rgb_ug RGB_COLOR_HSB(0,100,100)>;
+			bindings = <&to 2>, <&rgb_ug RGB_ON>;
 		};
 	};
 
@@ -50,15 +56,30 @@
 		base_layer {
 			bindings = <&kp DOWN &mid_lt 3 LG(B) &kp UP>;
 			sensor-bindings = <&enc RIGHT LEFT>;
+			/* white */
+			ledoverride;
+			r = <255>;
+			g = <255>;
+			b = <255>;
 		};
 
 		second_layer {
 			bindings = <&kp DOWN &mid_lt 4 LG(B) &kp UP>;
 			sensor-bindings = <&enc LS(RIGHT) LS(LEFT)>;
+			/* orange */
+			ledoverride;
+			r = <255>;
+			g = <90>;
+			b = <0>;
 		};
 
 		reset_layer {
 			bindings = <&bootloader &mid_lt 5 LG(B) &bootloader>;
+			/* red */
+			ledoverride;
+			r = <255>;
+			g = <0>;
+			b = <0>;
 		};
 
 		nav_from_base {

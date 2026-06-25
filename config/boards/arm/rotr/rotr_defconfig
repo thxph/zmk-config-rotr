@@ -28,12 +28,14 @@ CONFIG_ZMK_HID_CONSUMER_REPORT_USAGES_BASIC=y
 CONFIG_ZMK_RGB_UNDERGLOW=y
 # Use the STRIP config specific to the LEDs you're using
 CONFIG_WS2812_STRIP=y
-CONFIG_ZMK_RGB_UNDERGLOW_EFF_START=0
-CONFIG_ZMK_RGB_UNDERGLOW_HUE_START=0
-CONFIG_ZMK_RGB_UNDERGLOW_SAT_START=0
-CONFIG_ZMK_RGB_UNDERGLOW_BRT_START=100
+# Effect 4 = UNDERGLOW_EFFECT_DEFAULTLAYER (fork-specific): underglow color is
+# driven by the active default layer, with per-layer RGB set in the keymap via
+# ledoverride/r/g/b. No NVS write on layer switch (color is compile-time).
+CONFIG_ZMK_RGB_UNDERGLOW_EFF_START=4
 CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_IDLE=y
-CONFIG_ZMK_RGB_UNDERGLOW_LAYER_ON=y
+# LAYER_ON force-disables underglow unless the active layer is labeled "shift".
+# We do not use that gesture, so it stays off (default n) — leaving it on would
+# hold the strip dark since no layer is named "shift".
 CONFIG_BT_CTLR_TX_PWR_PLUS_8=y
 CONFIG_BUILD_OUTPUT_UF2=y
 CONFIG_ZMK_RGB_UNDERGLOW_EXT_POWER=y
