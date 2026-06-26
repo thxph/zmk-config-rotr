@@ -24,6 +24,10 @@ CONFIG_FLASH_MAP=y
 
 CONFIG_ZMK_HID_CONSUMER_REPORT_USAGES_BASIC=y
 
+# 3 content layers (0-2) cycled by the &def default-layer behavior, plus 1
+# control layer (3). change_default wraps over layers 0..(LAYERS_LEN-2).
+CONFIG_ZMK_KEYMAP_LAYERS_LEN=4
+
 
 CONFIG_ZMK_RGB_UNDERGLOW=y
 # Use the STRIP config specific to the LEDs you're using
@@ -32,7 +36,7 @@ CONFIG_WS2812_STRIP=y
 # driven by the active default layer, with per-layer RGB set in the keymap via
 # ledoverride/r/g/b. No NVS write on layer switch (color is compile-time).
 CONFIG_ZMK_RGB_UNDERGLOW_EFF_START=4
-CONFIG_ZMK_RGB_UNDERGLOW_AUTO_OFF_IDLE=y
+# AUTO_OFF_IDLE intentionally NOT set: keep the per-layer color lit at all times.
 # LAYER_ON force-disables underglow unless the active layer is labeled "shift".
 # We do not use that gesture, so it stays off (default n) — leaving it on would
 # hold the strip dark since no layer is named "shift".
