@@ -22,6 +22,28 @@
 		};
 	};
 
+	macros {
+		/*
+		 * Cycle the default layer AND ensure the strip is on. RGB_ON persists
+		 * on=true to NVS, but Zephyr NVS skips writes when the value is
+		 * unchanged, so this only touches flash the first time. Per-layer color
+		 * still comes from the ephemeral DEFAULTLAYER effect, not a saved color.
+		 */
+		cyc_prev: cyc_prev {
+			compatible = "zmk,behavior-macro";
+			label = "CYC_PREV";
+			#binding-cells = <0>;
+			bindings = <&rgb_ug RGB_ON>, <&def LYRDN>;
+		};
+
+		cyc_next: cyc_next {
+			compatible = "zmk,behavior-macro";
+			label = "CYC_NEXT";
+			#binding-cells = <0>;
+			bindings = <&rgb_ug RGB_ON>, <&def LYRUP>;
+		};
+	};
+
 	combos {
 		compatible = "zmk,combos";
 
@@ -84,7 +106,7 @@
 			 * (re-rendering the LED) without deactivating this held layer, so you
 			 * can keep middle held and tap repeatedly to cycle.
 			 */
-			bindings = <&def LYRDN &trans &def LYRUP>;
+			bindings = <&cyc_prev &trans &cyc_next>;
 		};
 	};
 };
