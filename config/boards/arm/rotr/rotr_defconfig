@@ -24,9 +24,9 @@ CONFIG_FLASH_MAP=y
 
 CONFIG_ZMK_HID_CONSUMER_REPORT_USAGES_BASIC=y
 
-# 3 content layers (0-2) cycled by the &def default-layer behavior, plus 1
-# control layer (3). change_default wraps over layers 0..(LAYERS_LEN-2).
-CONFIG_ZMK_KEYMAP_LAYERS_LEN=4
+# The keymap defines 4 layer nodes, so ZMK_KEYMAP_LAYERS_LEN is 4 (derived from
+# the devicetree, not a Kconfig). &def's change_default then wraps the default
+# layer over content layers 0..2, with layer 3 as the held control layer.
 
 
 CONFIG_ZMK_RGB_UNDERGLOW=y
