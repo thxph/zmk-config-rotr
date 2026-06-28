@@ -5,11 +5,17 @@
 
 / {
 	behaviors {
+		/*
+		 * The knob is a MagAlpha MA730 magnetic sensor (rotr.dts), not a
+		 * detented EC11. resolution=8 deg/event gives 45 events per rotation,
+		 * so 45 is the finest triggers-per-rotation; values should divide 45
+		 * evenly (45/15/9/5/3) for even spacing.
+		 */
 		enc: enc {
 			compatible = "zmk,behavior-sensor-rotate-key-press";
 			label = "ENC";
 			#sensor-binding-cells = <2>;
-			triggers-per-rotation = <30>;
+			triggers-per-rotation = <45>;
 		};
 
 		/* Lower triggers-per-rotation = less sensitive; used for media volume. */
