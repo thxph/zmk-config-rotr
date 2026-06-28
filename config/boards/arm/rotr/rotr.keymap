@@ -91,12 +91,13 @@
 			 * only fires on a deliberate two-key press. To leave without flashing,
 			 * hold middle (control layer) and tap left/right to cycle away.
 			 */
-			bindings = <&trans &mid_lt 3 LG(B) &trans>;
-			/* red */
+			bindings = <&kp C_MUTE &mid_lt 3 C_PP &kp C_NEXT>;
+			sensor-bindings = <&enc C_VOL_UP C_VOL_DN>;
+			/* pastel red (#FF6961) */
 			ledoverride;
 			r = <255>;
-			g = <0>;
-			b = <0>;
+			g = <105>;
+			b = <97>;
 		};
 
 		control_layer {
