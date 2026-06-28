@@ -12,6 +12,14 @@
 			triggers-per-rotation = <30>;
 		};
 
+		/* Lower triggers-per-rotation = less sensitive; used for media volume. */
+		enc_slow: enc_slow {
+			compatible = "zmk,behavior-sensor-rotate-key-press";
+			label = "ENC_SLOW";
+			#sensor-binding-cells = <2>;
+			triggers-per-rotation = <15>;
+		};
+
 		mid_lt: middle_layer_tap {
 			compatible = "zmk,behavior-hold-tap";
 			label = "MID_LT";
@@ -92,7 +100,7 @@
 			 * hold middle (control layer) and tap left/right to cycle away.
 			 */
 			bindings = <&kp C_MUTE &mid_lt 3 C_PP &kp C_NEXT>;
-			sensor-bindings = <&enc C_VOL_UP C_VOL_DN>;
+			sensor-bindings = <&enc_slow C_VOL_UP C_VOL_DN>;
 			/* pastel red (#FF6961) */
 			ledoverride;
 			r = <255>;
