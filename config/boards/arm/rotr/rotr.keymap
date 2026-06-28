@@ -9,21 +9,34 @@
 		 * The knob is a MagAlpha MA730 magnetic sensor (rotr.dts), not a
 		 * detented EC11. resolution=8 deg/event gives 45 events per rotation,
 		 * so 45 is the finest triggers-per-rotation; values should divide 45
-		 * evenly (45/15/9/5/3) for even spacing.
+		 * evenly (45/15/9/5/3) for even spacing. Higher = more sensitive.
 		 */
-		enc: enc {
+		enc45: enc45 {
 			compatible = "zmk,behavior-sensor-rotate-key-press";
-			label = "ENC";
+			label = "ENC45";
 			#sensor-binding-cells = <2>;
 			triggers-per-rotation = <45>;
 		};
 
-		/* Lower triggers-per-rotation = less sensitive; used for media volume. */
-		enc_slow: enc_slow {
+		enc15: enc15 {
 			compatible = "zmk,behavior-sensor-rotate-key-press";
-			label = "ENC_SLOW";
+			label = "ENC15";
 			#sensor-binding-cells = <2>;
 			triggers-per-rotation = <15>;
+		};
+
+		enc9: enc9 {
+			compatible = "zmk,behavior-sensor-rotate-key-press";
+			label = "ENC9";
+			#sensor-binding-cells = <2>;
+			triggers-per-rotation = <9>;
+		};
+
+		enc5: enc5 {
+			compatible = "zmk,behavior-sensor-rotate-key-press";
+			label = "ENC5";
+			#sensor-binding-cells = <2>;
+			triggers-per-rotation = <5>;
 		};
 
 		mid_lt: middle_layer_tap {
@@ -81,7 +94,7 @@
 		 */
 		base_layer {
 			bindings = <&kp DOWN &mid_lt 3 LG(B) &kp UP>;
-			sensor-bindings = <&enc RIGHT LEFT>;
+			sensor-bindings = <&enc15 RIGHT LEFT>;
 			/* white */
 			ledoverride;
 			r = <255>;
@@ -91,7 +104,7 @@
 
 		second_layer {
 			bindings = <&kp DOWN &mid_lt 3 LG(B) &kp UP>;
-			sensor-bindings = <&enc LS(RIGHT) LS(LEFT)>;
+			sensor-bindings = <&enc9 LS(RIGHT) LS(LEFT)>;
 			/* orange */
 			ledoverride;
 			r = <255>;
@@ -106,7 +119,7 @@
 			 * hold middle (control layer) and tap left/right to cycle away.
 			 */
 			bindings = <&kp C_MUTE &mid_lt 3 C_PP &kp C_NEXT>;
-			sensor-bindings = <&enc_slow C_VOL_UP C_VOL_DN>;
+			sensor-bindings = <&enc9 C_VOL_UP C_VOL_DN>;
 			/* pastel red (#FF6961) */
 			ledoverride;
 			r = <255>;
